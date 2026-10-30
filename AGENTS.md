@@ -7,3 +7,5 @@
 模型—窗口项、同录包请求和独立任务回合分别统计。不要因网页生成、文件存在或接口测试通过而标记真实任务、新颖性或毕业要求已完成。
 
 用户已要求GitHub主页和提交后的自动更新。发布仅包括本仓库的白名单文件；实际硬件操作与外部消息不属于网页更新流程。
+
+公开任务状态读取本地project_state.json的 `publication_phase`（done/active/todo）及 `public_description`。T01按验收版本一致性判断；其他任务标为done时必须同时提供被审阅的证据文件与 `publication_evidence_sha256`。不要根据“已生成文件”自动填写完成状态。

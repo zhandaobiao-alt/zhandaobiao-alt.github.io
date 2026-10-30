@@ -30,6 +30,18 @@ milestones = [
     {'id':'T05','title':'真实任务与检测验证','phase':'todo','description':'实际到达、误差和失败回合需要独立任务记录。'},
     {'id':'T06','title':'方法与实验正文','phase':'active','description':'已有方法及部分实验内容稿，随证据更新；全篇与排版待完成。'},
 ]
+by_id={task['id']:task for task in state['tasks']}
+for milestone in milestones:
+    task=by_id[milestone['id']]
+    if milestone['id']!='T01':
+        milestone['phase']=task.get('publication_phase',milestone['phase'])
+        if milestone['phase']=='done':
+            evidence=Path(task.get('evidence',''))
+            expected=task.get('publication_evidence_sha256')
+            if not evidence.is_file() or hashlib.sha256(evidence.read_bytes()).hexdigest()!=expected:
+                raise RuntimeError('Completed public task requires reviewed evidence hash: '+milestone['id'])
+    if task.get('public_description'):
+        milestone['description']=task['public_description']
 data = {'updated_on':datetime.now(timezone(timedelta(hours=8))).strftime('%Y-%m-%d'),
         'current_stage':'局部导航方法与系统验证', 'milestones':milestones,
         'acceptance':{'routes':routes,'requests':sum(route['requests'] for route in routes),
