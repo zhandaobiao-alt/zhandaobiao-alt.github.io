@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="移动巡检机器人的视觉可通行性、局部导航与实验研究记录。">
+  <title>移动巡检机器人 · 研究记录</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#top"><span class="brand-mark">R</span> ROBOTICS / RESEARCH</a><nav aria-label="主导航"><a href="#research">研究主线</a><a href="#progress">进度</a><a href="#experiments">实验记录</a><a href="#workflow">工作流</a></nav></header>
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">FIELD NOTES · 仪器科学与技术</p>
+      <h1>从环境感知，<br>走向可靠的局部导航。</h1>
+      <p class="intro">围绕移动巡检机器人，研究局部可通行性表达、几何证据约束与路径生成。用可追溯的实验，连接方法设计与系统实现。</p>
+      <div class="hero-actions"><a class="button" href="#progress">查看研究进度 <span aria-hidden="true">↗</span></a><a class="text-link" href="#experiments">阅读验收记录 →</a></div>
+      <p class="updated" id="updated"></p>
+    </section>
+    <section class="research" id="research">
+      <div class="section-head"><p class="eyebrow">01 / RESEARCH</p><h2>一条清楚的研究主线</h2></div>
+      <div class="research-grid"><p class="section-intro">在有限视场与不完整观测下，使预测地图、几何证据、目标选择和路径决策保持一致。</p><div class="method-flow" aria-label="方法流程示意"><div><span>01</span><strong>RGB-D / XYZRGB</strong><small>带时间戳的局部观测</small></div><div><span>02</span><strong>局部环境表达</strong><small>短时聚合与栅格特征</small></div><div><span>03</span><strong>预测与约束</strong><small>可通行状态及目标条件</small></div><div><span>04</span><strong>路径生成</strong><small>搜索、检查与预览输出</small></div></div></div>
+      <p class="note">检测作为系统可行性验证。几何约束仍是待进一步评价的研究机制，不预先宣称相对于所有基线的优势。</p>
+    </section>
+    <section id="progress">
+      <div class="section-head"><p class="eyebrow">02 / PROGRESS</p><h2>进展与尚待验证的内容</h2></div>
+      <div class="filter" role="group" aria-label="筛选研究进度"><button type="button" class="active" data-filter="all" aria-pressed="true">全部</button><button type="button" data-filter="done" aria-pressed="false">已验收</button><button type="button" data-filter="active" aria-pressed="false">进行中</button><button type="button" data-filter="todo" aria-pressed="false">待验证</button></div>
+      <div id="milestones" class="milestones"></div><p id="filter-status" class="sr-only" aria-live="polite"></p>
+    </section>
+    <section id="experiments">
+      <div class="section-head"><p class="eyebrow">03 / EXPERIMENT LOG</p><h2>先记录证据，再形成结论</h2></div>
+      <div class="stats"><div><strong id="route-count">—</strong><span>输入链路</span></div><div><strong id="request-count">—</strong><span>录包触发请求</span></div><div><strong id="real-trials">—</strong><span>已确认独立实机回合</span></div></div>
+      <p class="note" id="trial-scope"></p><div class="table-wrap"><table><caption>接口回放验收，不作为导航泛化精度</caption><thead><tr><th>输入方式</th><th>触发次数</th><th>验收状态</th></tr></thead><tbody id="experiment-rows"></tbody></table></div>
+      <details><summary>这些结果能够说明什么？</summary><p>证明输入、特征、推理和路径预览能够串联运行。真实车体足迹、近场连接、独立场景表现和闭环任务仍需各自的实验支持。联合结构尚未表现出全面稳定优势。</p></details>
+      <p class="source-note" id="source-note"></p>
+    </section>
+    <section id="workflow">
+      <div class="section-head"><p class="eyebrow">04 / WORKFLOW</p><h2>让每次更新都有来处</h2></div>
+      <ol class="workflow"><li><span>01</span><strong>实际实验</strong><p>保存配置、输入来源与全部结果。</p></li><li><span>02</span><strong>摘要导出</strong><p>只提取允许公开的状态与统计。</p></li><li><span>03</span><strong>检查与构建</strong><p>验证数据边界，生成静态页面。</p></li><li><span>04</span><strong>版本与发布</strong><p>提交后由GitHub Actions更新主页。</p></li></ol>
+      <p class="note">主页更新不会运行机器人或自动产生论文结论。完整正文、原始数据和连接凭据保留在本地研究环境。</p>
+    </section>
+  </main>
+  <footer><p>ROBOTICS RESEARCH NOTEBOOK</p><p>公开进度摘要 · <a href="https://github.com/zhandaobiao-alt/zhandaobiao-alt.github.io">查看项目版本</a></p></footer>
+  <script id="research-data" type="application/json">__RESEARCH_JSON__</script>
+  <script src="app.js"></script>
+</body>
+</html>
