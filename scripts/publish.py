@@ -80,7 +80,7 @@ def publish_with_api(route, token):
                      'content':(ROOT/name).read_text(encoding='utf-8')})
     newtree=api('POST',route+'/git/trees',token,{'base_tree':commit['tree']['sha'],'tree':tree})
     if newtree['sha']==commit['tree']['sha']:
-        return head,pages
+        return head,pages,False
     newcommit=api('POST',route+'/git/commits',token,{
         'message':'Update validated research homepage and publishing workflow',
         'tree':newtree['sha'],'parents':[head]})
@@ -88,7 +88,7 @@ def publish_with_api(route, token):
     if current!=head:
         raise RuntimeError('Remote branch changed during publication; no force push performed')
     api('PATCH',route+'/git/refs/heads/main',token,{'sha':newcommit['sha'],'force':False})
-    return newcommit['sha'],pages
+    return newcommit['sha'],pages,True
 
 def main():
     parser=argparse.ArgumentParser()
@@ -126,13 +126,8 @@ def main():
     pending=git('diff','--cached','--quiet',capture=True,check=False)
     if pending.returncode:
         git('commit','-m','Update validated research homepage and publishing workflow')
-    remote_commit,pages=publish_with_api(route,token)
-    try:
-        api('POST',route+'/actions/workflows/pages.yml/dispatches',token,{'ref':'main'})
-        dispatch='requested'
-    except RuntimeError:
-        # The just-pushed workflow may not yet be indexed. Push still triggers it.
-        dispatch='push_trigger_pending'
+    remote_commit,pages,changed=publish_with_api(route,token)
+    dispatch='push_triggered' if changed else 'no_changes'
     result={'repository':repository['html_url'],'homepage':pages.get('html_url', 'https://'+OWNER+'.github.io/'),
             'workflow_dispatch':dispatch,'local_commit':git('rev-parse','HEAD',capture=True).stdout.strip(),
             'remote_commit':remote_commit,'transport':'GitHub Git Data API'}

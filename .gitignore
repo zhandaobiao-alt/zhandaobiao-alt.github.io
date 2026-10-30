@@ -20,3 +20,4 @@ raw_data/
 runtime/
 logs/
 publish_status.local.json
+*.local.json
