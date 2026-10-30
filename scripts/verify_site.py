@@ -2,14 +2,22 @@
 import json
 from pathlib import Path
 import re
+import time
 import urllib.request
 
 root=Path(__file__).resolve().parents[1]
 url='https://zhandaobiao-alt.github.io/'
 headers={'User-Agent':'research-homepage-verifier','Cache-Control':'no-cache'}
-with urllib.request.urlopen(urllib.request.Request(url,headers=headers),timeout=20) as response:
-    html=response.read().decode('utf-8')
-    status=response.status
+def fetch(target):
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(target,headers=headers),timeout=15) as response:
+                return response.status,response.read()
+        except (OSError,TimeoutError):
+            if attempt==2: raise
+            time.sleep(attempt+1)
+status,body=fetch(url)
+html=body.decode('utf-8')
 assert status==200 and '移动巡检机器人' in html
 match=re.search(r'<script id="research-data" type="application/json">(.*?)</script>',html,re.S)
 assert match,'No published research payload'
@@ -18,10 +26,9 @@ local=json.loads((root/'public/research.json').read_text(encoding='utf-8'))
 assert data==local,'Published payload does not yet match the latest local evidence summary'
 assets={}
 for name in ('styles.css','app.js'):
-    with urllib.request.urlopen(urllib.request.Request(url+name,headers=headers),timeout=20) as response:
-        content=response.read()
-        assert response.status==200 and len(content)>200
-        assets[name]=len(content)
+    asset_status,content=fetch(url+name)
+    assert asset_status==200 and len(content)>200
+    assets[name]=len(content)
 report={'homepage':url,'http_status':status,'public_payload_matches':True,
         'milestones':len(data['milestones']),'requests':data['acceptance']['requests'],
         'independent_vehicle_trials':data['acceptance']['independent_vehicle_trials'],

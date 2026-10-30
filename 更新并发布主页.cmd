@@ -1,12 +1,12 @@
 @echo off
-set "TASK_PY=C:\Users\Lenovo\miniconda3\envs\ultralytics\python.exe"
+if not defined THESIS_PYTHON set "THESIS_PYTHON=python"
 cd /d "%~dp0"
-"%TASK_PY%" scripts\sync_local.py --state "..\thesis_workflow_20261030\project_state.json"
+"%THESIS_PYTHON%" scripts\sync_local.py --state "..\thesis_workflow_20261030\project_state.json"
 if errorlevel 1 goto finished
-"%TASK_PY%" -m unittest discover -s tests -v
+"%THESIS_PYTHON%" -m unittest discover -s tests -v
 if errorlevel 1 goto finished
-"%TASK_PY%" scripts\build.py
+"%THESIS_PYTHON%" scripts\build.py
 if errorlevel 1 goto finished
-"%TASK_PY%" scripts\publish.py
+"%THESIS_PYTHON%" scripts\publish.py
 :finished
 pause

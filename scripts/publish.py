@@ -17,7 +17,7 @@ import urllib.request
 ROOT = Path(__file__).resolve().parents[1]
 OWNER = 'zhandaobiao-alt'
 REPO = OWNER+'.github.io'
-GIT = shutil.which('git') or r'D:\Program Files\Git\cmd\git.exe'
+GIT = shutil.which('git') or 'git'
 
 def git(*args, capture=False, check=True):
     return subprocess.run([GIT,*args],cwd=ROOT,text=True,encoding='utf-8',capture_output=capture,check=check,
