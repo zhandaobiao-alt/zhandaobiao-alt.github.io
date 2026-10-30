@@ -6,7 +6,7 @@
       "id": "T01",
       "title": "观测输入与单次触发",
       "phase": "done",
-      "description": "三条输入链路完成静止录包验收。当前代码与验收版本一致。"
+      "description": "三条输入链路完成静止录包验收，追加两次冷启动查看流程验证；真实任务仍待完成。"
     },
     {
       "id": "T02",
@@ -62,5 +62,5 @@
     "unit": "same_stationary_bag_requests",
     "scope": "三条链路的六次请求来自同一个静止录包，用于接口验收；不作为独立导航实验或泛化精度。"
   },
-  "evidence_sha256": "ae1097f8ea2a2b08d2611e3e883d309a90fe032fc12ac50ad69abc2cc0e9ea70"
+  "evidence_sha256": "44a5c650cfebd60c0898499336c4b4fb49985371de70df8de077a78f4101f63b"
 }
