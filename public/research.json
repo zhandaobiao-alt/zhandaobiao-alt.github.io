@@ -1,5 +1,5 @@
 {
-  "updated_on": "2026-11-16",
+  "updated_on": "2026-11-17",
   "current_stage": "局部导航方法与系统验证",
   "milestones": [
     {
@@ -36,7 +36,7 @@
       "id": "T06",
       "title": "方法与实验正文",
       "phase": "active",
-      "description": "第二章系统总体设计完成结构修订，补充自研底盘控制板原理图、装配说明和信号接口，完成Word排版核对。"
+      "description": "第二章底盘控制、轮速估计和里程计说明完成部署配置核对，已修订控制框图、公式与接口表。"
     }
   ],
   "acceptance": {
