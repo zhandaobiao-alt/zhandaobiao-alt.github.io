@@ -1,5 +1,5 @@
 {
-  "updated_on": "2026-11-17",
+  "updated_on": "2026-11-23",
   "current_stage": "局部导航方法与系统验证",
   "milestones": [
     {
@@ -36,7 +36,7 @@
       "id": "T06",
       "title": "方法与实验正文",
       "phase": "active",
-      "description": "第二章底盘控制、轮速估计和里程计说明完成部署配置核对，已修订控制框图、公式与接口表。"
+      "description": "机械臂与RGB-D视觉感知正文完成设备规格、安装关系及实际采集配置核对，分节Word与PDF已检查。"
     }
   ],
   "acceptance": {
